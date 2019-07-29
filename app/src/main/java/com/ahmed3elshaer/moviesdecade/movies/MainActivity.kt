@@ -28,6 +28,17 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(),MviView<MoviesIntents,MoviesViewStates> {
 
+class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewStates>,
+    HasActivityInjector {
+    @Inject
+
+    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
+    override fun activityInjector(): DispatchingAndroidInjector<Activity> {
+        return activityDispatchingAndroidInjector
+    }
+
+    @Inject
     private val disposables = CompositeDisposable()
     @Inject
     lateinit var viewModelFactory: MoviesViewModelFactory
