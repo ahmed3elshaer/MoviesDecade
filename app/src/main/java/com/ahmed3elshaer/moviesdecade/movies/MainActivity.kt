@@ -46,10 +46,20 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
             .of(this, viewModelFactory)
             .get(MoviesViewModel::class.java)
     }
+
+    lateinit var moviesAdapter: MoviesAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        moviesAdapter = MoviesAdapter()
+        bind()
+        rvMovies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvMovies.itemAnimator = DefaultItemAnimator()
+        rvMovies.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
+        rvMovies.adapter = moviesAdapter
+
     }
 
     override fun render(state: MoviesViewStates) {
