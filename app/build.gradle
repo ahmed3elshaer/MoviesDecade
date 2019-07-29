@@ -97,9 +97,10 @@ dependencies {
 
     //Utils
     implementation deps.constraint_layout
-    implementation deps.circular_imageview
     implementation deps.glide.runtime
     kapt deps.glide.compiler
+
+
 
     //Architecture components
     implementation deps.lifecycle.runtime
