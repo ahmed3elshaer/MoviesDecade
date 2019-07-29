@@ -25,8 +25,17 @@ class MoviesRepository @Inject constructor(var flickerApi: FlickerApi, var conte
         }
 
     }
+
     fun searchMovies(query: String): Observable<List<Movie>> {
-        return Observable.just(mutableListOf())
+        if (query.isEmpty())
+            return Observable.just(moviesList)
+        return if (moviesList.isNotEmpty()) {
+            Observable.just(moviesList.filter {
+                it.title.toLowerCase(Locale.getDefault())
+                    .contains(query.toLowerCase(Locale.getDefault()))
+            })
+        } else
+            Observable.error(Throwable("Empty movies file"))
 
     }
 
