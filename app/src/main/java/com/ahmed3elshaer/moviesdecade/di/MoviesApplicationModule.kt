@@ -28,7 +28,7 @@ class MoviesApplicationModule() {
         actionProcessor: MoviesActionProcessor,
         context: Context
     ): MoviesViewModelFactory {
-        return MoviesViewModelFactory(context,actionProcessor)
+        return MoviesViewModelFactory(context, actionProcessor)
     }
 
     @Provides
@@ -39,14 +39,14 @@ class MoviesApplicationModule() {
     }
 
 
-
-
     @Provides
     internal fun provideMoviesRepo(
-        flickerApi: FlickerApi
+        flickerApi: FlickerApi,
+        context: Context
     ): MoviesRepository {
         return MoviesRepository(
-            flickerApi
+            flickerApi,
+            context
         )
     }
 
