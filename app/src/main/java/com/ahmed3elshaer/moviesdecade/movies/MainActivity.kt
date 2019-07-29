@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(),MviView<MoviesIntents,MoviesViewStates> {
 
 class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewStates>,
     HasActivityInjector {
@@ -38,7 +37,6 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
         return activityDispatchingAndroidInjector
     }
 
-    @Inject
     private val disposables = CompositeDisposable()
     @Inject
     lateinit var viewModelFactory: MoviesViewModelFactory
