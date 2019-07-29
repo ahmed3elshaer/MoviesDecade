@@ -1,5 +1,7 @@
 package com.ahmed3elshaer.moviesdecade.utils
 
+import android.content.res.AssetManager
+import android.view.View
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.annotations.CheckReturnValue
@@ -19,3 +21,17 @@ fun <T : Any, U : Any> Observable<T>.notOfType(clazz: Class<U>): Observable<T> {
     checkNotNull(clazz) { "clazz is null" }
     return filter { !clazz.isInstance(it) }
 }
+
+fun View.hide(){
+    this.visibility = View.GONE
+}
+
+
+fun View.show(){
+    this.visibility = View.VISIBLE
+}
+ fun View.invisible() {
+     this.visibility = View.INVISIBLE
+}
+
+fun AssetManager.readAssetsFile(fileName : String): String = open(fileName).bufferedReader().use{it.readText()}
