@@ -91,10 +91,44 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
 
     }
 
+    private fun renderMovies(movies: List<Movie>) {
+        moviesAdapter.setData(movies)
+        ivEmpty.hide()
+        tvEmpty.hide()
+        rvMovies.show()
+
+    }
+
+    private fun renderEmptyMovies() {
+        ivEmpty.show()
+        tvEmpty.show()
+        rvMovies.hide()
+    }
+
+    private fun showMessage(message: String?) {
+        message?.let {
+            val view = findViewById<View>(android.R.id.content) ?: return
+            Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+                .show()
+        }
+
+    }
+
+    private fun loadingState(isLoading: Boolean) {
+        if (isLoading)
+            pbLoading.show()
+        else
+            pbLoading.invisible()
+
+
+    }
+
 
     override fun intents(): Observable<MoviesIntents> {
-        return Observable.merge(initIntent(),
-            searchIntent())
+        return Observable.merge(
+            initIntent(),
+            searchIntent()
+        )
     }
 
     private fun initIntent(): Observable<MoviesIntents.InitIntent> {
@@ -104,9 +138,6 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     private fun searchIntent(): Observable<MoviesIntents.SearchIntent> {
         return RxSearchObservable.fromView(svMovies)
             .debounce(300, TimeUnit.MILLISECONDS)
-            .filter {
-                it.isNotEmpty()
-            }
             .distinctUntilChanged()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -115,4 +146,14 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
             }
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        disposables.dispose()
+    }
+
 }
+
+
+
