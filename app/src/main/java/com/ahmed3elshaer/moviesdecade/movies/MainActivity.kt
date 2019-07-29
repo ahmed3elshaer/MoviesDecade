@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
 
     private val viewModel: MoviesViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProviders
-            .of(this,viewModelFactory)
+            .of(this, viewModelFactory)
             .get(MoviesViewModel::class.java)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
