@@ -34,6 +34,7 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
                 )
             }
         }
+
     override fun processIntents(intents: Observable<MoviesIntents>) {
         disposables.add(intents.subscribe(intentsSubject::onNext))
     }
@@ -48,7 +49,6 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
             )
         }
     }
-
 
 
     private fun compose(): Observable<MoviesViewStates> {
