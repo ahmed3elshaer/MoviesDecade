@@ -62,6 +62,21 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
 
     }
 
+    /**
+     * Connect the [MviView] with the [MviViewModel]
+     * We subscribe to the [MviViewModel] before passing it the [MviView]'s [MviIntent]s.
+     * If we were to pass [MviIntent]s to the [MviViewModel] before listening to it,
+     * emitted [MviViewState]s could be lost
+     */
+    private fun bind() {
+        // Subscribe to the ViewModel and call render for every emitted state
+        disposables.add(viewModel.states().subscribe(this::render))
+        // Pass the UI's intents to the ViewModel
+        viewModel.processIntents(intents())
+
+
+    }
+
     override fun render(state: MoviesViewStates) {
 
     }
