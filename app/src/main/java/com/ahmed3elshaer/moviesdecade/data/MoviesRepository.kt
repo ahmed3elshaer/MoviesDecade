@@ -14,9 +14,17 @@ import javax.inject.Inject
 class MoviesRepository @Inject constructor(var flickerApi: FlickerApi, var context: Context) {
     private var moviesList = listOf<Movie>()
     fun getMovies(): Observable<List<Movie>> {
-        return Observable.just(mutableListOf())
-    }
+        return if (moviesList.isNotEmpty()) {
+            Observable.just(moviesList)
+        } else {
+            val moviesStr = context.assets.readAssetsFile("movies.json")
+            val moshi = Moshi.Builder().build()
+            val jsonAdapter = moshi.adapter(MoviesResponse::class.java)
+            moviesList = jsonAdapter.fromJson(moviesStr).movies
+            Observable.just(moviesList)
+        }
 
+    }
     fun searchMovies(query: String): Observable<List<Movie>> {
         return Observable.just(mutableListOf())
 
