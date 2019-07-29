@@ -6,9 +6,11 @@ import com.ahmed3elshaer.moviesdecade.utils.notOfType
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.PublishSubject
 
-class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewModel(), MviViewModel<MoviesIntents, MoviesViewStates> {
+class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewModel(),
+    MviViewModel<MoviesIntents, MoviesViewStates> {
 
     /**
      * Proxy subject used to keep the stream alive even after the UI gets recycled.
