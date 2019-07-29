@@ -12,6 +12,7 @@ import javax.inject.Inject
 
 
 class MoviesRepository @Inject constructor(var flickerApi: FlickerApi, var context: Context) {
+    private var moviesList = listOf<Movie>()
     fun getMovies(): Observable<List<Movie>> {
         return Observable.just(mutableListOf())
     }
