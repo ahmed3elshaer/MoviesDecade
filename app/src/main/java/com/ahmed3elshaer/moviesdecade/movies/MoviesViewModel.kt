@@ -77,5 +77,18 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
         disposables.dispose()
     }
 
+    companion object {
+        private val reducer = BiFunction { previousState: MoviesViewStates, result: MoviesResults ->
+            when (result) {
+                is MoviesResults.LoadMoviesResult -> when (result) {
+                    is MoviesResults.LoadMoviesResult.Success -> previousState.copy(movies = result.movies,isLoading = false)
+                    is MoviesResults.LoadMoviesResult.Failure -> previousState.copy(error = result.error,isLoading = false)
+                    is MoviesResults.LoadMoviesResult.InFlight -> previousState.copy(isLoading = true)
+                }
+
+            }
+        }
+    }
+
 
 }
