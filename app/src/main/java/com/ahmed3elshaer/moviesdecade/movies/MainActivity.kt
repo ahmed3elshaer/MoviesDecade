@@ -78,6 +78,16 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     }
 
     override fun render(state: MoviesViewStates) {
+        loadingState(state.isLoading)
+        if (state.error != null) {
+            showMessage(state.error.message)
+            return
+        }
+        if (state.movies.isEmpty())
+            renderEmptyMovies()
+        else
+            renderMovies(state.movies)
+
 
     }
 
