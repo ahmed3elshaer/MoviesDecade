@@ -110,6 +110,12 @@ dependencies {
     kapt deps.lifecycle.compiler
     kapt deps.room.compiler
 
+    //paging
+    implementation deps.paging.runtime
+    implementation deps.paging.rxpaging
+
+
+
     //dagger
     implementation deps.dagger.runtime
     implementation deps.dagger.android
