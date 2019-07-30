@@ -1,10 +1,8 @@
 package com.ahmed3elshaer.moviesdecade.movies
 
 import androidx.paging.PagedList
-import androidx.paging.PagedList.Config.MAX_SIZE_UNBOUNDED
 import androidx.paging.RxPagedListBuilder
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
-import com.ahmed3elshaer.moviesdecade.data.paging.MoviesDataSourceFactory
 import com.ahmed3elshaer.moviesdecade.data.paging.MoviesSearchDataSourceFactory
 import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT
 import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT_MOVIES
@@ -15,7 +13,6 @@ import io.reactivex.ObservableTransformer
 @Suppress("UNCHECKED_CAST")
 class MoviesActionProcessor(
     moviesRepo: MoviesRepository,
-    moviesDataSourceFactory: MoviesDataSourceFactory,
     scheduler: BaseSchedulerProvider
 ) {
 
@@ -34,14 +31,7 @@ class MoviesActionProcessor(
     private val loadMoviesProcessor =
         ObservableTransformer<MoviesActions.LoadMovies, MoviesResults> { action ->
             action.flatMap {
-                val config = PagedList.Config.Builder()
-                    .setPageSize(PAGE_COUNT_MOVIES)
-                    .setInitialLoadSizeHint(PAGE_COUNT_MOVIES)
-                    .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(0)
-                    .setMaxSize(MAX_SIZE_UNBOUNDED)
-                    .build()
-                RxPagedListBuilder(moviesDataSourceFactory, config)
+                RxPagedListBuilder(moviesRepo.allMoviesDataSource(), PAGE_COUNT_MOVIES)
                     .buildObservable()
                     .map { movies ->
                         MoviesResults.LoadMoviesResult.Success(movies as PagedList<Any>)
@@ -64,13 +54,13 @@ class MoviesActionProcessor(
                 )
                     .buildObservable()
                     .map { movies ->
-                        MoviesResults.LoadMoviesResult.Success(movies)
+                        MoviesResults.SearchMoviesResult.Success(movies)
                     }
-                    .cast(MoviesResults.LoadMoviesResult::class.java)
-                    .onErrorReturn(MoviesResults.LoadMoviesResult::Failure)
+                    .cast(MoviesResults.SearchMoviesResult::class.java)
+                    .onErrorReturn(MoviesResults.SearchMoviesResult::Failure)
                     .subscribeOn(scheduler.io())
                     .observeOn(scheduler.ui())
-                    .startWith(MoviesResults.LoadMoviesResult.InFlight)
+                    .startWith(MoviesResults.SearchMoviesResult.InFlight)
 
             }
 
