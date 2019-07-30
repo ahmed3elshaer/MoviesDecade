@@ -2,6 +2,8 @@ package com.ahmed3elshaer.moviesdecade.di
 
 import android.content.Context
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
+import com.ahmed3elshaer.moviesdecade.data.padding.MoviesDataSource
+import com.ahmed3elshaer.moviesdecade.data.padding.MoviesDataSourceFactory
 import com.ahmed3elshaer.moviesdecade.movies.MoviesActionProcessor
 import com.ahmed3elshaer.moviesdecade.network.FlickerApi
 import com.ahmed3elshaer.moviesdecade.utils.BASE_URL
@@ -15,10 +17,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
+
 
 @Module
 class MoviesApplicationModule() {
@@ -33,9 +33,17 @@ class MoviesApplicationModule() {
 
     @Provides
     internal fun provideMoviesActionProcessor(
-        repo: MoviesRepository
+        repo: MoviesRepository,
+        moviesDataSourceFactory: MoviesDataSourceFactory
     ): MoviesActionProcessor {
-        return MoviesActionProcessor(repo, SchedulerProvider)
+        return MoviesActionProcessor(repo, moviesDataSourceFactory, SchedulerProvider)
+    }
+
+    @Provides
+    internal fun provideMoviesDataSourceFactory(
+        repo: MoviesRepository
+    ): MoviesDataSourceFactory {
+        return MoviesDataSourceFactory(repo)
     }
 
 
