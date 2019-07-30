@@ -14,12 +14,17 @@ import com.ahmed3elshaer.moviesdecade.R
 import com.ahmed3elshaer.moviesdecade.data.models.Movie
 import com.ahmed3elshaer.moviesdecade.utils.TYPE_MOVIE
 import com.ahmed3elshaer.moviesdecade.utils.TYPE_YEAR
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.movie_item.view.*
 import kotlinx.android.synthetic.main.year_item.view.*
 
 
 class MoviesAdapter : PagedListAdapter<Any, RecyclerView.ViewHolder>(MoviesDiffCallback) {
+    private val movieClickSubject = PublishSubject.create<Movie>()
 
+    val movieClick: Observable<Movie>
+        get() = movieClickSubject
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -47,10 +52,6 @@ class MoviesAdapter : PagedListAdapter<Any, RecyclerView.ViewHolder>(MoviesDiffC
         return -1
     }
 
-    override fun getItemCount(): Int {
-        return super.getItemCount()
-    }
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             TYPE_MOVIE -> (holder as MoviesViewHolder).bind(getItem(position) as Movie)
@@ -60,9 +61,14 @@ class MoviesAdapter : PagedListAdapter<Any, RecyclerView.ViewHolder>(MoviesDiffC
     }
 
 
+    inner class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    class MoviesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: Movie) = with(itemView) {
+        fun bind(item: Movie) = with(itemView)
+        {
+            container.setOnClickListener {
+                //emitting to open details fragment
+                movieClickSubject.onNext(item)
+            }
             val titleSpan = SpannableString(item.title + " (" + item.year.toString() + ")")
             titleSpan.setSpan(
                 ForegroundColorSpan(Color.parseColor("#ABABAB")),
@@ -80,16 +86,16 @@ class MoviesAdapter : PagedListAdapter<Any, RecyclerView.ViewHolder>(MoviesDiffC
             }
             tvCast.text = castStr.toString()
             ratingBar.rating = item.rating.toFloat()
-            setOnClickListener {
 
-            }
         }
+
     }
 
     class YearViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: Int) = with(itemView) {
             tvYear.text = item.toString()
         }
+        //we will igone clicks on years shouldn't render anything
     }
 
     companion object {
