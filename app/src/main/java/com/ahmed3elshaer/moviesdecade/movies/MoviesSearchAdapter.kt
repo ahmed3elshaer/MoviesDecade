@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.movie_item.view.*
 import kotlinx.android.synthetic.main.year_item.view.*
 
 
-class MoviesAdapter : PagedListAdapter<Any, RecyclerView.ViewHolder>(MoviesDiffCallback) {
+class MoviesSearchAdapter : PagedListAdapter<Any, RecyclerView.ViewHolder>(MoviesDiffCallback) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
