@@ -1,4 +1,4 @@
-package com.ahmed3elshaer.moviesdecade.data.padding
+package com.ahmed3elshaer.moviesdecade.data.paging
 
 import androidx.paging.DataSource
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
