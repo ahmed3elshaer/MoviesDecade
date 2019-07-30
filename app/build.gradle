@@ -108,6 +108,11 @@ dependencies {
     implementation deps.lifecycle.java8
     implementation deps.lifecycle.viewmodel_ktx
     kapt deps.lifecycle.compiler
+
+    //room
+    implementation deps.room.runtime
+    implementation deps.room.rxjava2
+    implementation deps.room.testing
     kapt deps.room.compiler
 
     //paging
