@@ -1,19 +1,22 @@
 package com.ahmed3elshaer.moviesdecade.movies
 
-import com.ahmed3elshaer.moviesdecade.data.models.Movie
+import androidx.paging.PagedList
 import com.ahmed3elshaer.moviesdecade.mvibase.MviViewState
 
 data class MoviesViewStates(
     val isLoading: Boolean,
-    val movies: List<Movie>,
+    val movies: PagedList<Any>?,
+    val moviesSearch: PagedList<Any>?,
     val error: Throwable?
 ) : MviViewState {
     companion object {
         fun idle(): MoviesViewStates {
             return MoviesViewStates(
                 isLoading = false,
-                movies = listOf(),
-                error = null
+                error = null,
+                movies = null,
+                moviesSearch = null
+
             )
         }
     }
