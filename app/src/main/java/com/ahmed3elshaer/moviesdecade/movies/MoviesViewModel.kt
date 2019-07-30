@@ -81,14 +81,31 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
         private val reducer = BiFunction { previousState: MoviesViewStates, result: MoviesResults ->
             when (result) {
                 is MoviesResults.LoadMoviesResult -> when (result) {
-                    is MoviesResults.LoadMoviesResult.Success -> previousState.copy(movies = result.movies,isLoading = false)
-                    is MoviesResults.LoadMoviesResult.Failure -> previousState.copy(error = result.error,isLoading = false)
+                    is MoviesResults.LoadMoviesResult.Success -> previousState.copy(
+                        movies = result.movies,
+                        isLoading = false
+                    )
+                    is MoviesResults.LoadMoviesResult.Failure -> previousState.copy(
+                        error = result.error,
+                        isLoading = false
+                    )
                     is MoviesResults.LoadMoviesResult.InFlight -> previousState.copy(isLoading = true)
                 }
+                is MoviesResults.searchMoviesResult -> when (result) {
+                    is MoviesResults.searchMoviesResult.Success -> previousState.copy(
+                        moviesSearch = result.movies,
+                        isLoading = false
+                    )
+                    is MoviesResults.searchMoviesResult.Failure -> previousState.copy(
+                        error = result.error,
+                        isLoading = false
+                    )
+                    is MoviesResults.searchMoviesResult.InFlight -> previousState.copy(isLoading = true)
 
+                }
             }
         }
+
+
     }
-
-
 }
