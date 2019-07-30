@@ -4,8 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="0dp"
     android:clickable="true"
-    android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
     android:foreground="?android:attr/selectableItemBackground"
     android:focusable="true"
     app:cardBackgroundColor="@color/colorWhite"
@@ -13,43 +11,40 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:focusable="true"
-        android:clickable="true"
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/circular_medium"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/ratingBar"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tvCast"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="The Umbrella Academy (2009)" />
 
         <TextView
             android:id="@+id/tvCast"
-            android:layout_width="0dp"
-            android:textColor="@color/colorPrimary"
-
+            android:layout_width="347dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:fontFamily="@font/circular_book"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/colorPrimary"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/ratingBar"
+            app:layout_constraintTop_toBottomOf="@+id/ratingBar"
             tools:text="The Umbrella AcademyThe Umbrella AcademyThe Umbrella AcademyThe Umbrella Academy" />
 
         <RatingBar
@@ -57,10 +52,9 @@
             style="@style/Widget.AppCompat.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvTitle" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tvTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <View

@@ -8,4 +8,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="dialogStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
 </resources>
