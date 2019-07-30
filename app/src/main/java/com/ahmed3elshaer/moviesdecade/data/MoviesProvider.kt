@@ -1,10 +1,12 @@
-package com.ahmed3elshaer.moviesdecade.utils
+package com.ahmed3elshaer.moviesdecade.data
 
 import android.content.Context
 import com.ahmed3elshaer.moviesdecade.data.models.Movie
 import com.ahmed3elshaer.moviesdecade.data.models.MoviesResponse
+import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT
+import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT_MOVIES
+import com.ahmed3elshaer.moviesdecade.utils.readAssetsFile
 import com.squareup.moshi.Moshi
-import io.reactivex.Observable
 import java.util.*
 
 object MoviesProvider {
@@ -25,13 +27,18 @@ object MoviesProvider {
     private fun getChunkedMovies(context: Context): List<List<Movie>> {
         getMoviesLocal(context)
         if (moviesChucked.isEmpty())
-            moviesChucked = movies.chunked(movies.size / PAGE_COUNT)
+            moviesChucked = movies.chunked(
+                movies.size / PAGE_COUNT_MOVIES
+            )
         return moviesChucked
     }
 
 
     fun getMovies(context: Context, page: Int = 0): List<Movie> {
-        return if (page < getChunkedMovies(context).size && page >= 0)
+        return if (page < getChunkedMovies(
+                context
+            ).size && page >= 0
+        )
             getChunkedMovies(context)[page]
         else listOf()
     }
