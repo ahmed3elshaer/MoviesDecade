@@ -2,7 +2,8 @@ package com.ahmed3elshaer.moviesdecade.di
 
 import android.content.Context
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
-import com.ahmed3elshaer.moviesdecade.data.paging.MoviesDataSourceFactory
+import com.ahmed3elshaer.moviesdecade.data.room.MoviesDao
+import com.ahmed3elshaer.moviesdecade.data.room.MoviesDatabase
 import com.ahmed3elshaer.moviesdecade.movies.MoviesActionProcessor
 import com.ahmed3elshaer.moviesdecade.network.FlickerApi
 import com.ahmed3elshaer.moviesdecade.utils.BASE_URL
@@ -17,6 +18,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 
 @Module
@@ -32,29 +34,27 @@ class MoviesApplicationModule() {
 
     @Provides
     internal fun provideMoviesActionProcessor(
-        repo: MoviesRepository,
-        moviesDataSourceFactory: MoviesDataSourceFactory
-    ): MoviesActionProcessor {
-        return MoviesActionProcessor(repo, moviesDataSourceFactory, SchedulerProvider)
-    }
-
-    @Provides
-    internal fun provideMoviesDataSourceFactory(
         repo: MoviesRepository
-    ): MoviesDataSourceFactory {
-        return MoviesDataSourceFactory(repo)
+    ): MoviesActionProcessor {
+        return MoviesActionProcessor(repo, SchedulerProvider)
     }
-
 
     @Provides
     internal fun provideMoviesRepo(
+        moviesDao: MoviesDao,
         flickerApi: FlickerApi,
         context: Context
     ): MoviesRepository {
-        return MoviesRepository(
+        return MoviesRepository(moviesDao,
             flickerApi,
             context
         )
+    }
+
+
+    @Provides
+    internal fun provideMoviesDao(context: Context): MoviesDao {
+        return MoviesDatabase.getInstance(context).moviesDao()
     }
 
 
