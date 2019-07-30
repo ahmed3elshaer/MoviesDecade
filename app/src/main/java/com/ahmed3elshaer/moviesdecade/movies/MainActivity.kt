@@ -88,12 +88,14 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
         loadingState(state.isLoading)
         if (state.error != null) {
             showMessage(state.error.message)
+            state.error.printStackTrace()
             return
         }
-        if (state.movies.isEmpty())
-            renderEmptyMovies()
-        else
-            renderMovies(state.movies)
+        state.movies?.let {
+            if (state.movies.isEmpty())
+                renderEmptyMovies()
+            else
+                renderMovies(state.movies)
 
         }
         state.moviesSearch?.let {
