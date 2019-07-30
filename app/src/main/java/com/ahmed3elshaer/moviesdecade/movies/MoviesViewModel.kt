@@ -44,9 +44,11 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
     private fun actionFromIntents(intents: MoviesIntents): MoviesActions {
         return when (intents) {
             is MoviesIntents.InitIntent -> MoviesActions.LoadMovies
-            is MoviesIntents.SearchIntent -> MoviesActions.SearchMovies(
-                intents.query
-            )
+            is MoviesIntents.SearchIntent -> if (intents.query.isEmpty())
+                MoviesActions.LoadMovies
+            else
+                MoviesActions.SearchMovies(intents.query)
+
         }
     }
 
