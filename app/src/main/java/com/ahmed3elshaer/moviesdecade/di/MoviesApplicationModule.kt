@@ -2,8 +2,7 @@ package com.ahmed3elshaer.moviesdecade.di
 
 import android.content.Context
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
-import com.ahmed3elshaer.moviesdecade.data.padding.MoviesDataSource
-import com.ahmed3elshaer.moviesdecade.data.padding.MoviesDataSourceFactory
+import com.ahmed3elshaer.moviesdecade.data.paging.MoviesDataSourceFactory
 import com.ahmed3elshaer.moviesdecade.movies.MoviesActionProcessor
 import com.ahmed3elshaer.moviesdecade.network.FlickerApi
 import com.ahmed3elshaer.moviesdecade.utils.BASE_URL

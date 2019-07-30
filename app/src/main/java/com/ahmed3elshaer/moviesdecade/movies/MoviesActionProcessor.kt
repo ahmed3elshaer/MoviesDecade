@@ -4,10 +4,8 @@ import androidx.paging.PagedList
 import androidx.paging.PagedList.Config.MAX_SIZE_UNBOUNDED
 import androidx.paging.RxPagedListBuilder
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
-import com.ahmed3elshaer.moviesdecade.data.models.Movie
-import com.ahmed3elshaer.moviesdecade.data.padding.MoviesDataSource
-import com.ahmed3elshaer.moviesdecade.data.padding.MoviesDataSourceFactory
-import com.ahmed3elshaer.moviesdecade.data.padding.MoviesSearchDataSourceFactory
+import com.ahmed3elshaer.moviesdecade.data.paging.MoviesDataSourceFactory
+import com.ahmed3elshaer.moviesdecade.data.paging.MoviesSearchDataSourceFactory
 import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT
 import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT_MOVIES
 import com.ahmed3elshaer.moviesdecade.utils.schedulers.BaseSchedulerProvider

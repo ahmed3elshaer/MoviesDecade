@@ -1,9 +1,7 @@
-package com.ahmed3elshaer.moviesdecade.data.padding
+package com.ahmed3elshaer.moviesdecade.data.paging
 
-import android.util.Log
 import androidx.paging.PageKeyedDataSource
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
-import com.ahmed3elshaer.moviesdecade.data.models.Movie
 
 class MoviesSearchDataSource(
     var moviesRepository: MoviesRepository,

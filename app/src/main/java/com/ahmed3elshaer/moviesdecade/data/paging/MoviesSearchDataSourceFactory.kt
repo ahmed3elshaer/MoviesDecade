@@ -1,12 +1,7 @@
-package com.ahmed3elshaer.moviesdecade.data.padding
+package com.ahmed3elshaer.moviesdecade.data.paging
 
-import android.content.Context
 import androidx.paging.DataSource
-import androidx.paging.PageKeyedDataSource
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
-import com.ahmed3elshaer.moviesdecade.data.models.Movie
-import io.reactivex.Scheduler
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class MoviesSearchDataSourceFactory @Inject constructor(
