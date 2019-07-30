@@ -5,8 +5,8 @@ import com.ahmed3elshaer.moviesdecade.mvibase.MviViewState
 
 data class MoviesViewStates(
     val isLoading: Boolean,
+    val isSearch: Boolean,
     val movies: PagedList<Any>?,
-    val moviesSearch: PagedList<Any>?,
     val error: Throwable?
 ) : MviViewState {
     companion object {
@@ -15,8 +15,7 @@ data class MoviesViewStates(
                 isLoading = false,
                 error = null,
                 movies = null,
-                moviesSearch = null
-
+                isSearch = false
             )
         }
     }
