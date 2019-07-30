@@ -1,15 +1,11 @@
 package com.ahmed3elshaer.moviesdecade.utils
 
-import android.app.Activity
 import android.content.res.AssetManager
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.annotations.CheckReturnValue
 import io.reactivex.annotations.SchedulerSupport
-import androidx.core.content.ContextCompat.getSystemService
-
 
 
 @CheckReturnValue
@@ -39,13 +35,5 @@ fun View.show(){
      this.visibility = View.INVISIBLE
 }
 
-fun Activity.hideKeyboard(){
-    val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    var view = this.currentFocus
-    if (view == null) {
-        view = View(this)
-    }
-    imm.hideSoftInputFromWindow(view.windowToken, 0)
-}
 
 fun AssetManager.readAssetsFile(fileName : String): String = open(fileName).bufferedReader().use{it.readText()}
