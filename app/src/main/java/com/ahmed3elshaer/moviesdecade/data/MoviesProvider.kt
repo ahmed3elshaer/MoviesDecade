@@ -83,5 +83,12 @@ object MoviesProvider {
             listOf()
     }
 
+    fun getCurrentSearchSize(): Int {
+        return searchMoviesChucked.size
+    }
+    fun getCurrentMoviesSize(): Int {
+        return moviesChucked.size
+    }
+
 
 }
