@@ -13,9 +13,9 @@ class MoviesSearchDataSourceFactory @Inject constructor(
     var moviesRepository: MoviesRepository,
     var query:String
 ) :
-    DataSource.Factory<Int, Movie>() {
-    override fun create(): DataSource<Int, Movie> {
-        return MoviesDataSource(moviesRepository,query)
+    DataSource.Factory<Int, Any>() {
+    override fun create(): DataSource<Int, Any> {
+        return MoviesSearchDataSource(moviesRepository,query)
     }
 
 
