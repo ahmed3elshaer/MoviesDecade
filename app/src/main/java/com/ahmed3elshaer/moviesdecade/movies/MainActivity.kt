@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
+import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,18 +49,24 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     }
 
     lateinit var moviesAdapter: MoviesAdapter
+    lateinit var moviesSearchAdapter: MoviesSearchAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         moviesAdapter = MoviesAdapter()
+        moviesSearchAdapter = MoviesSearchAdapter()
         bind()
+        initMoviesList()
+
+    }
+
+    private fun initMoviesList() {
         rvMovies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvMovies.itemAnimator = DefaultItemAnimator()
         rvMovies.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
         rvMovies.adapter = moviesAdapter
-
     }
 
     /**
@@ -88,6 +95,12 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
         else
             renderMovies(state.movies)
 
+        }
+        state.moviesSearch?.let {
+            if (state.moviesSearch.isEmpty())
+                renderEmptyMovies()
+            else
+                renderSearchResults(state.moviesSearch)
 
     }
 
