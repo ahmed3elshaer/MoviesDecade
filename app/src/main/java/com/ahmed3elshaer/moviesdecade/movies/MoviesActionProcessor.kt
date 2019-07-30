@@ -58,14 +58,18 @@ class MoviesActionProcessor(
         }
 
     private val searchMoviesProcessor =
-        ObservableTransformer<MoviesActions.SearchMovies,MoviesResults> { action ->
+        ObservableTransformer<MoviesActions.SearchMovies, MoviesResults> { action ->
             action.flatMap { searchAction ->
-                moviesRepo.searchMovies(searchAction.query)
+                RxPagedListBuilder(
+                    MoviesSearchDataSourceFactory(moviesRepo, searchAction.query),
+                    PAGE_COUNT
+                )
+                    .buildObservable()
                     .map { movies ->
                         MoviesResults.LoadMoviesResult.Success(movies)
                     }
                     .cast(MoviesResults.LoadMoviesResult::class.java)
-                    .onErrorReturn (MoviesResults.LoadMoviesResult::Failure)
+                    .onErrorReturn(MoviesResults.LoadMoviesResult::Failure)
                     .subscribeOn(scheduler.io())
                     .observeOn(scheduler.ui())
                     .startWith(MoviesResults.LoadMoviesResult.InFlight)
