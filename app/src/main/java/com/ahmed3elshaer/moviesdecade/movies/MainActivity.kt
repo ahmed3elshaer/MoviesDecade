@@ -104,13 +104,26 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
             else
                 renderSearchResults(state.moviesSearch)
 
+        }
+
+
     }
 
-    private fun renderMovies(movies: List<Movie>) {
-        moviesAdapter.setData(movies)
+    private fun renderSearchResults(moviesSearch: PagedList<Any>) {
+        moviesSearchAdapter.submitList(moviesSearch)
         ivEmpty.hide()
         tvEmpty.hide()
+        rvMovies.adapter = moviesSearchAdapter
         rvMovies.show()
+    }
+
+    private fun renderMovies(movies: PagedList<Any>) {
+        moviesAdapter.submitList(movies)
+        ivEmpty.hide()
+        tvEmpty.hide()
+        rvMovies.adapter = moviesAdapter
+        rvMovies.show()
+
 
     }
 
@@ -162,9 +175,9 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
 
     }
 
+
     override fun onDestroy() {
         super.onDestroy()
-
         disposables.dispose()
     }
 
