@@ -65,7 +65,6 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     private fun initMoviesList() {
         rvMovies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvMovies.itemAnimator = DefaultItemAnimator()
-        rvMovies.addItemDecoration(DividerItemDecoration(this, RecyclerView.VERTICAL))
         rvMovies.adapter = moviesAdapter
     }
 
@@ -92,36 +91,26 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
             return
         }
         state.movies?.let {
-            if (state.movies.isEmpty())
-                renderEmptyMovies()
-            else
-                renderMovies(state.movies)
-
-        }
-        state.moviesSearch?.let {
-            if (state.moviesSearch.isEmpty())
-                renderEmptyMovies()
-            else
-                renderSearchResults(state.moviesSearch)
-
+            when {
+                state.movies.isEmpty() -> renderEmptyMovies()
+                else -> renderMovies(state.movies, state.isSearch)
+            }
         }
 
 
     }
 
-    private fun renderSearchResults(moviesSearch: PagedList<Any>) {
-        moviesSearchAdapter.submitList(moviesSearch)
-        ivEmpty.hide()
-        tvEmpty.hide()
-        rvMovies.adapter = moviesSearchAdapter
-        rvMovies.show()
-    }
 
-    private fun renderMovies(movies: PagedList<Any>) {
-        moviesAdapter.submitList(movies)
+    private fun renderMovies(movies: PagedList<Any>, isSearch: Boolean) {
+        if (isSearch) {
+            moviesSearchAdapter.submitList(movies)
+            rvMovies.adapter = moviesSearchAdapter
+        } else {
+            moviesAdapter.submitList(movies)
+            rvMovies.adapter = moviesAdapter
+        }
         ivEmpty.hide()
         tvEmpty.hide()
-        rvMovies.adapter = moviesAdapter
         rvMovies.show()
 
 

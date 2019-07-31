@@ -10,10 +10,10 @@ sealed class MoviesResults : MviResult {
         object InFlight : LoadMoviesResult()
     }
 
-    sealed class searchMoviesResult : MoviesResults() {
-        data class Success(val movies: PagedList<Any>) : searchMoviesResult()
-        data class Failure(val error: Throwable) : searchMoviesResult()
-        object InFlight : searchMoviesResult()
+    sealed class SearchMoviesResult : MoviesResults() {
+        data class Success(val movies: PagedList<Any>) : SearchMoviesResult()
+        data class Failure(val error: Throwable) : SearchMoviesResult()
+        object InFlight : SearchMoviesResult()
     }
 
 

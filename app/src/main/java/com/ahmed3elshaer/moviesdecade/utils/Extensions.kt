@@ -6,6 +6,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.annotations.CheckReturnValue
 import io.reactivex.annotations.SchedulerSupport
+import java.util.concurrent.Executors
 
 
 @CheckReturnValue
@@ -37,3 +38,7 @@ fun View.show(){
 
 
 fun AssetManager.readAssetsFile(fileName : String): String = open(fileName).bufferedReader().use{it.readText()}
+
+fun ioThread(f: () -> Unit) {
+    Executors.newSingleThreadExecutor().execute(f)
+}

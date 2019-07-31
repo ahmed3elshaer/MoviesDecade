@@ -44,9 +44,11 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
     private fun actionFromIntents(intents: MoviesIntents): MoviesActions {
         return when (intents) {
             is MoviesIntents.InitIntent -> MoviesActions.LoadMovies
-            is MoviesIntents.SearchIntent -> MoviesActions.SearchMovies(
-                intents.query
-            )
+            is MoviesIntents.SearchIntent -> if (intents.query.isEmpty())
+                MoviesActions.LoadMovies
+            else
+                MoviesActions.SearchMovies(intents.query)
+
         }
     }
 
@@ -83,6 +85,7 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
                 is MoviesResults.LoadMoviesResult -> when (result) {
                     is MoviesResults.LoadMoviesResult.Success -> previousState.copy(
                         movies = result.movies,
+                        isSearch = false,
                         isLoading = false
                     )
                     is MoviesResults.LoadMoviesResult.Failure -> previousState.copy(
@@ -91,16 +94,17 @@ class MoviesViewModel(var moviesActionProcessor: MoviesActionProcessor) : ViewMo
                     )
                     is MoviesResults.LoadMoviesResult.InFlight -> previousState.copy(isLoading = true)
                 }
-                is MoviesResults.searchMoviesResult -> when (result) {
-                    is MoviesResults.searchMoviesResult.Success -> previousState.copy(
-                        moviesSearch = result.movies,
+                is MoviesResults.SearchMoviesResult -> when (result) {
+                    is MoviesResults.SearchMoviesResult.Success -> previousState.copy(
+                        movies = result.movies,
+                        isSearch = true,
                         isLoading = false
                     )
-                    is MoviesResults.searchMoviesResult.Failure -> previousState.copy(
+                    is MoviesResults.SearchMoviesResult.Failure -> previousState.copy(
                         error = result.error,
                         isLoading = false
                     )
-                    is MoviesResults.searchMoviesResult.InFlight -> previousState.copy(isLoading = true)
+                    is MoviesResults.SearchMoviesResult.InFlight -> previousState.copy(isLoading = true)
 
                 }
             }
