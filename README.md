@@ -19,6 +19,7 @@ The past decade held a lot of movies, some left a mark and some were just a set 
 <img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/1.png"></a>
 <img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/2.png"></a>
 <img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/3.png"></a>
+<img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/4.png"></a>
 
 ## Specifications
 
