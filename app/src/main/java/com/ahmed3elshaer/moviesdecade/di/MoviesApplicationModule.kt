@@ -1,11 +1,15 @@
 package com.ahmed3elshaer.moviesdecade.di
 
 import android.content.Context
+import com.ahmed3elshaer.moviesdecade.data.MoviesProvider
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
+import com.ahmed3elshaer.moviesdecade.data.room.MoviesDao
+import com.ahmed3elshaer.moviesdecade.data.room.MoviesDatabase
+import com.ahmed3elshaer.moviesdecade.moviedetail.DetailsActionProcessor
 import com.ahmed3elshaer.moviesdecade.movies.MoviesActionProcessor
 import com.ahmed3elshaer.moviesdecade.network.FlickerApi
 import com.ahmed3elshaer.moviesdecade.utils.BASE_URL
-import com.ahmed3elshaer.moviesdecade.utils.MoviesViewModelFactory
+import com.ahmed3elshaer.moviesdecade.utils.ViewModelFactory
 import com.ahmed3elshaer.moviesdecade.utils.schedulers.SchedulerProvider
 import dagger.Module
 import dagger.Provides
@@ -15,20 +19,19 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.*
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
+
 
 @Module
 class MoviesApplicationModule() {
 
     @Provides
     internal fun provideViewModelFactory(
-        actionProcessor: MoviesActionProcessor,
+        moviesActionProcessor: MoviesActionProcessor,
+        DetailsActionProcessor: DetailsActionProcessor,
         context: Context
-    ): MoviesViewModelFactory {
-        return MoviesViewModelFactory(context,actionProcessor)
+    ): ViewModelFactory {
+        return ViewModelFactory(context, moviesActionProcessor, DetailsActionProcessor)
     }
 
     @Provides
@@ -38,16 +41,36 @@ class MoviesApplicationModule() {
         return MoviesActionProcessor(repo, SchedulerProvider)
     }
 
-
-
+    @Provides
+    internal fun provideDetailsActionProcessor(
+        repo: MoviesRepository
+    ): DetailsActionProcessor {
+        return DetailsActionProcessor(repo, SchedulerProvider)
+    }
 
     @Provides
     internal fun provideMoviesRepo(
-        flickerApi: FlickerApi
+        moviesDao: MoviesDao,
+        flickerApi: FlickerApi,
+        context: Context
     ): MoviesRepository {
         return MoviesRepository(
+            MoviesProvider(context),
+            moviesDao,
             flickerApi
         )
+    }
+
+
+    @Provides
+    internal fun moviesProvider(context: Context): MoviesProvider {
+        return MoviesProvider(context)
+    }
+
+
+    @Provides
+    internal fun provideMoviesDao(context: Context): MoviesDao {
+        return MoviesDatabase.getInstance(context).moviesDao()
     }
 
 

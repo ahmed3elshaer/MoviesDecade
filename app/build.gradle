@@ -7,6 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+
+    }
     splits {
 
         // Configures multiple APKs based on ABI.
@@ -28,7 +33,7 @@ android {
     }
     lintOptions {
         // Turns off checks for the issue IDs you specify.
-        disable 'TypographyFractions','TypographyQuotes'
+        disable 'TypographyFractions', 'TypographyQuotes'
         // Turns on checks for the issue IDs you specify. These checks are in
         // addition to the default lint checks.
         enable 'RtlHardcoded', 'RtlCompat', 'RtlEnabled'
@@ -62,6 +67,14 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "default"
+
+    productFlavors {
+        mock {
+            applicationIdSuffix = ".mock"
+        }
+        prod {}
+    }
     lintOptions {
         abortOnError false
     }
@@ -75,6 +88,7 @@ android {
         javaMaxHeapSize "4g"
     }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -97,17 +111,30 @@ dependencies {
 
     //Utils
     implementation deps.constraint_layout
-    implementation deps.circular_imageview
     implementation deps.glide.runtime
     kapt deps.glide.compiler
+    implementation deps.lottie
+
 
     //Architecture components
     implementation deps.lifecycle.runtime
     implementation deps.lifecycle.extensions
     implementation deps.lifecycle.java8
     implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.arch_core.runtime
+    implementation deps.arch_core.testing
     kapt deps.lifecycle.compiler
+
+    //room
+    implementation deps.room.runtime
+    implementation deps.room.rxjava2
+    implementation deps.room.testing
     kapt deps.room.compiler
+
+    //paging
+    implementation deps.paging.runtime
+    implementation deps.paging.rxpaging
+
 
     //dagger
     implementation deps.dagger.runtime
@@ -129,9 +156,22 @@ dependencies {
     implementation deps.rxjava2
     implementation deps.rx_android
 
+    //mockito
+    testImplementation deps.mockito.core
+    testImplementation deps.mockito.all
+    androidTestImplementation deps.mockito.android
+    testImplementation 'org.mockito:mockito-inline:2.25.0'
+    testImplementation 'com.nhaarman:mockito-kotlin-kt1.1:1.5.0'
 
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+
+    //atsl
+    testImplementation deps.junit
+    testImplementation deps.atsl.runner
+    testImplementation deps.atsl.rules
+    testImplementation deps.atsl.ext_junit
+    androidTestImplementation 'com.android.support:support-annotations:24.0.0'
+
+
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }
