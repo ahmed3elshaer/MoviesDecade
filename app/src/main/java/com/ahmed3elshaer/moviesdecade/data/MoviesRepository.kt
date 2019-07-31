@@ -1,23 +1,16 @@
 package com.ahmed3elshaer.moviesdecade.data
 
-import android.content.Context
 import androidx.paging.DataSource
 import com.ahmed3elshaer.moviesdecade.data.models.Image
 import com.ahmed3elshaer.moviesdecade.data.models.Movie
 import com.ahmed3elshaer.moviesdecade.data.room.MoviesDao
 import com.ahmed3elshaer.moviesdecade.network.FlickerApi
+import com.ahmed3elshaer.moviesdecade.utils.ListDataSource
 import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT
 import com.ahmed3elshaer.moviesdecade.utils.ioThread
-import com.example.android.architecture.blueprints.todoapp.util.SingletonHolderTripleArg
 import io.reactivex.Observable
 import java.util.*
 import javax.inject.Inject
-import android.R.id.edit
-import android.preference.PreferenceManager
-import android.content.SharedPreferences
-import com.ahmed3elshaer.moviesdecade.utils.FIRST_TIME
-import com.ahmed3elshaer.moviesdecade.utils.ListDataSource
-import org.junit.runner.RunWith
 
 class MoviesRepository @Inject constructor(
     private val moviesProvider: MoviesProvider,
