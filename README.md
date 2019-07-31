@@ -55,7 +55,7 @@ The past decade held a lot of movies, some left a mark and some were just a set 
 ## Installation
 
 - Just clone the app and import to Android Studio.
-``https://github.com/Ahmed3Elshaer/MoviesDecade.git``
+``git clone https://github.com/Ahmed3Elshaer/MoviesDecade.git``
 
 - Make sure that your are in the ``Prod`` product flavour.
 
