@@ -89,6 +89,7 @@ android {
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //kotlin
@@ -120,6 +121,8 @@ dependencies {
     implementation deps.lifecycle.extensions
     implementation deps.lifecycle.java8
     implementation deps.lifecycle.viewmodel_ktx
+    implementation deps.arch_core.runtime
+    implementation deps.arch_core.testing
     kapt deps.lifecycle.compiler
 
     //room
