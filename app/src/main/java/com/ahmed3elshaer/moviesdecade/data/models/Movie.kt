@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
+import java.io.Serializable
 
 @Entity(tableName = "movies")
 data class Movie(
@@ -28,7 +29,7 @@ data class Movie(
     @ColumnInfo(name = "title")
     @Json(name = "title")
     val title: String = ""
-)
+) : Serializable
 
 data class MoviesResponse(
     @Json(name = "movies")

@@ -2,23 +2,28 @@ package com.ahmed3elshaer.moviesdecade.movies
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
-import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProviders
 import androidx.paging.PagedList
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ahmed3elshaer.moviesdecade.R
 import com.ahmed3elshaer.moviesdecade.data.models.Movie
+import com.ahmed3elshaer.moviesdecade.moviedetail.MovieDetailsBottomSheet
 import com.ahmed3elshaer.moviesdecade.mvibase.MviView
 import com.ahmed3elshaer.moviesdecade.utils.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import dagger.android.support.HasSupportFragmentInjector
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -29,18 +34,11 @@ import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewStates>,
-    HasActivityInjector {
-    @Inject
-
-    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
-
-    override fun activityInjector(): DispatchingAndroidInjector<Activity> {
-        return activityDispatchingAndroidInjector
-    }
+    HasActivityInjector, HasSupportFragmentInjector {
 
     private val disposables = CompositeDisposable()
     @Inject
-    lateinit var viewModelFactory: MoviesViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: MoviesViewModel by lazy(LazyThreadSafetyMode.NONE) {
         ViewModelProviders
@@ -49,16 +47,28 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     }
 
     lateinit var moviesAdapter: MoviesAdapter
-    lateinit var moviesSearchAdapter: MoviesSearchAdapter
+    lateinit var moviesSearchAdapter: MoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         moviesAdapter = MoviesAdapter()
-        moviesSearchAdapter = MoviesSearchAdapter()
+        moviesSearchAdapter = MoviesAdapter()
         bind()
         initMoviesList()
+        customizeSearchBar()
+
+    }
+
+    private fun customizeSearchBar() {
+        (svMovies.findViewById(androidx.appcompat.R.id.search_src_text) as TextView).apply {
+            setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
+            val font = ResourcesCompat.getFont(context, R.font.circular_book);
+            typeface = font
+            setTextSize(TypedValue.COMPLEX_UNIT_SP,22f)
+
+        }
 
     }
 
@@ -79,6 +89,8 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
         disposables.add(viewModel.states().subscribe(this::render))
         // Pass the UI's intents to the ViewModel
         viewModel.processIntents(intents())
+        // for listening to open movie details
+        detailsIntent()
 
 
     }
@@ -164,6 +176,35 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
 
     }
 
+    private fun detailsIntent() {
+        disposables.add(
+            Observable.merge(
+                moviesAdapter.movieClick,
+                moviesSearchAdapter.movieClick
+            ).subscribe { movie ->
+                renderMovie(movie)
+            }
+        )
+    }
+
+    private fun renderMovie(movie: Movie) {
+        MovieDetailsBottomSheet.newInstance(movie)
+            .show(supportFragmentManager, MOVIE_DETAIL)
+    }
+
+    @Inject
+    lateinit var fragmentDispatchingAndroidInjector: DispatchingAndroidInjector<androidx.fragment.app.Fragment>
+
+    override fun supportFragmentInjector(): AndroidInjector<androidx.fragment.app.Fragment> {
+        return fragmentDispatchingAndroidInjector
+    }
+
+    @Inject
+    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
+    override fun activityInjector(): DispatchingAndroidInjector<Activity> {
+        return activityDispatchingAndroidInjector
+    }
 
     override fun onDestroy() {
         super.onDestroy()

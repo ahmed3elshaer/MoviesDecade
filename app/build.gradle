@@ -28,7 +28,7 @@ android {
     }
     lintOptions {
         // Turns off checks for the issue IDs you specify.
-        disable 'TypographyFractions','TypographyQuotes'
+        disable 'TypographyFractions', 'TypographyQuotes'
         // Turns on checks for the issue IDs you specify. These checks are in
         // addition to the default lint checks.
         enable 'RtlHardcoded', 'RtlCompat', 'RtlEnabled'
@@ -99,7 +99,7 @@ dependencies {
     implementation deps.constraint_layout
     implementation deps.glide.runtime
     kapt deps.glide.compiler
-
+    implementation deps.lottie
 
 
     //Architecture components
@@ -118,7 +118,6 @@ dependencies {
     //paging
     implementation deps.paging.runtime
     implementation deps.paging.rxpaging
-
 
 
     //dagger
@@ -140,7 +139,6 @@ dependencies {
     //Rx
     implementation deps.rxjava2
     implementation deps.rx_android
-
 
 
     testImplementation 'junit:junit:4.12'

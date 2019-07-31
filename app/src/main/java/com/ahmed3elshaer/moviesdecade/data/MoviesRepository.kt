@@ -2,11 +2,14 @@ package com.ahmed3elshaer.moviesdecade.data
 
 import android.content.Context
 import androidx.paging.DataSource
+import com.ahmed3elshaer.moviesdecade.data.models.Image
+import com.ahmed3elshaer.moviesdecade.data.models.ImageResponse
 import com.ahmed3elshaer.moviesdecade.data.models.Movie
 import com.ahmed3elshaer.moviesdecade.data.room.MoviesDao
 import com.ahmed3elshaer.moviesdecade.network.FlickerApi
 import com.ahmed3elshaer.moviesdecade.utils.ioThread
 import io.reactivex.Completable
+import io.reactivex.Observable
 import javax.inject.Inject
 
 
@@ -42,6 +45,12 @@ class MoviesRepository @Inject constructor(
 
     fun currentSearchPage(): Int {
         return MoviesProvider.getCurrentSearchSize()
+    }
+
+    fun queryImages(title: String): Observable<List<Image>> {
+        return flickerApi.queryMovie(title = title).map { response ->
+            response.imageResponse.images
+        }
     }
 
 

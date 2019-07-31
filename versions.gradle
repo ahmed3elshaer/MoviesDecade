@@ -11,6 +11,7 @@ versions.core_ktx = "1.0.0"
 versions.dagger = "2.21"
 versions.espresso = "3.1.1"
 versions.glide = "4.8.0"
+versions.lottie = "3.0.7"
 versions.paging = "2.1.0"
 versions.junit = "4.12"
 versions.kotlin = "1.3.31"
@@ -127,11 +128,6 @@ rxbinding.core = "com.jakewharton.rxbinding3:rxbinding-core:$versions.rxbinding"
 rxbinding.appcompat = "com.jakewharton.rxbinding3:rxbinding-appcompat:$versions.rxbinding"
 deps.rxbinding = rxbinding
 
-def rxCache = [:]
-rxCache.core = "com.github.VictorAlbertos:ReactiveCache:$versions.rxCache"
-rxCache.gson = 'com.github.VictorAlbertos.Jolyglot:gson:0.0.4'
-deps.rxCache = rxCache
-
 
 
 
@@ -152,6 +148,7 @@ deps.android_gradle_plugin = "com.android.tools.build:gradle:$versions.android_g
 deps.robolectric = "org.robolectric:robolectric:$versions.robolectric"
 deps.circular_imageview = "de.hdodenhof:circleimageview:$versions.circleimageview"
 deps.bottom_picker = "com.philliphsu:bottomsheetpickers:$versions.bottom_picker"
+deps.lottie =  "com.airbnb.android:lottie:$versions.lottie"
 ext.deps = deps
 
 
