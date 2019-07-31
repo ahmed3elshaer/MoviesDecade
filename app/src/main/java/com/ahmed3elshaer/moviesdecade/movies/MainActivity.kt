@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     }
 
     private fun customizeSearchBar() {
-        (svMovies.findViewById(androidx.appcompat.R.id.search_src_text) as TextView).apply {
+        (svMovies?.findViewById(androidx.appcompat.R.id.search_src_text) as TextView).apply {
             setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
             val font = ResourcesCompat.getFont(context, R.font.circular_book);
             typeface = font
@@ -73,9 +73,9 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     }
 
     private fun initMoviesList() {
-        rvMovies.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        rvMovies.itemAnimator = DefaultItemAnimator()
-        rvMovies.adapter = moviesAdapter
+        rvMovies?.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        rvMovies?.itemAnimator = DefaultItemAnimator()
+        rvMovies?.adapter = moviesAdapter
     }
 
     /**
@@ -116,22 +116,22 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
     private fun renderMovies(movies: PagedList<Any>, isSearch: Boolean) {
         if (isSearch) {
             moviesSearchAdapter.submitList(movies)
-            rvMovies.adapter = moviesSearchAdapter
+            rvMovies?.adapter = moviesSearchAdapter
         } else {
             moviesAdapter.submitList(movies)
-            rvMovies.adapter = moviesAdapter
+            rvMovies?.adapter = moviesAdapter
         }
-        ivEmpty.hide()
-        tvEmpty.hide()
-        rvMovies.show()
+        ivEmpty?.hide()
+        tvEmpty?.hide()
+        rvMovies?.show()
 
 
     }
 
     private fun renderEmptyMovies() {
-        ivEmpty.show()
-        tvEmpty.show()
-        rvMovies.hide()
+        ivEmpty?.show()
+        tvEmpty?.show()
+        rvMovies?.hide()
     }
 
     private fun showMessage(message: String?) {
@@ -145,9 +145,9 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
 
     private fun loadingState(isLoading: Boolean) {
         if (isLoading)
-            pbLoading.show()
+            pbLoading?.show()
         else
-            pbLoading.invisible()
+            pbLoading?.invisible()
 
 
     }

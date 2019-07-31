@@ -12,7 +12,7 @@ data class Movie(
 
     @Json(name = "cast")
     @ColumnInfo(name = "cast")
-    val cast: List<String> = mutableListOf(),
+    val cast: List<String> = listOf(),
 
     @Json(name = "year")
     @ColumnInfo(name = "year")
@@ -20,7 +20,7 @@ data class Movie(
 
     @Json(name = "genres")
     @ColumnInfo(name = "genres")
-    val genres: List<String> = mutableListOf(),
+    val genres: List<String> = listOf(),
 
     @Json(name = "rating")
     @ColumnInfo(name = "rating")

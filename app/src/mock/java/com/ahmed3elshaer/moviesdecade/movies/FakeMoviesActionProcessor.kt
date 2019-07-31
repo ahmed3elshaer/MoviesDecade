@@ -1,22 +1,27 @@
 package com.ahmed3elshaer.moviesdecade.movies
 
 import androidx.paging.PagedList
-import androidx.paging.RxPagedListBuilder
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
-import com.ahmed3elshaer.moviesdecade.data.paging.MoviesSearchDataSourceFactory
-import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT
-import com.ahmed3elshaer.moviesdecade.utils.PAGE_COUNT_MOVIES
+import com.ahmed3elshaer.moviesdecade.data.models.Movie
+import com.ahmed3elshaer.moviesdecade.utils.mockPagedList
 import com.ahmed3elshaer.moviesdecade.utils.schedulers.BaseSchedulerProvider
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 
+//the difference that we replace the
+// ```
+// RxPagedListBuilder(moviesRepo.allMoviesDataSource(), PAGE_COUNT_MOVIES)
+// .buildObservable()
+// ```
+//in the real action processor as in testing RxPagedListBuilder doesn't seem to emmit
+// values with many tires and researches i came up with solution of making fake PagedList providers in
+// this FakeProcessor and use it in testing
 @Suppress("UNCHECKED_CAST")
-open class MoviesActionProcessor(
+class FakeMoviesActionProcessor(
     moviesRepo: MoviesRepository,
     scheduler: BaseSchedulerProvider
-) {
-
-    open var actionProcessor =
+) : MoviesActionProcessor(moviesRepo, scheduler) {
+    override var actionProcessor =
         ObservableTransformer<MoviesActions, MoviesResults> { actions ->
             actions.publish { shared ->
                 Observable.merge(
@@ -31,8 +36,7 @@ open class MoviesActionProcessor(
     private val loadMoviesProcessor =
         ObservableTransformer<MoviesActions.LoadMovies, MoviesResults> { action ->
             action.flatMap {
-                RxPagedListBuilder(moviesRepo.allMoviesDataSource(), PAGE_COUNT_MOVIES)
-                    .buildObservable()
+                getFakeMoviesPagedListObservable()
                     .map { movies ->
                         MoviesResults.LoadMoviesResult.Success(movies as PagedList<Any>)
                     }
@@ -45,14 +49,18 @@ open class MoviesActionProcessor(
 
         }
 
+    private fun getFakeMoviesPagedListObservable(): Observable<PagedList<Movie>> {
+        return Observable.just(FakeMovies.movies.mockPagedList())
+    }
+
+    private fun getFakeMoviesSearchPagedListObservable(): Observable<PagedList<Any>> {
+        return Observable.just(FakeMovies.moviesSearch.mockPagedList())
+    }
+
     private val searchMoviesProcessor =
         ObservableTransformer<MoviesActions.SearchMovies, MoviesResults> { action ->
             action.flatMap { searchAction ->
-                RxPagedListBuilder(
-                    MoviesSearchDataSourceFactory(moviesRepo, searchAction.query),
-                    PAGE_COUNT
-                )
-                    .buildObservable()
+                getFakeMoviesSearchPagedListObservable()
                     .map { movies ->
                         MoviesResults.SearchMoviesResult.Success(movies)
                     }

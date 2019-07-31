@@ -19,28 +19,28 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:fontFamily="@font/circular_black"
-            android:layout_marginBottom="16dp"
             android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            android:text="@string/app_name" />
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/circular_black"
+            android:text="@string/app_name"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
+
         <ProgressBar
             android:id="@+id/pbLoading"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/svMovies" />
+            android:layout_gravity="center"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/colorAccent"
+            android:visibility="gone" />
+
         <androidx.appcompat.widget.SearchView
             android:id="@+id/svMovies"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="32dp"
             android:layout_marginEnd="16dp"
+            android:layout_marginBottom="32dp"
             android:background="@drawable/rounded_outlined"
             app:iconifiedByDefault="false"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +55,7 @@
         android:id="@+id/rvMovies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingTop="16dp"
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,11 +65,13 @@
         tools:listitem="@layout/movie_item" />
 
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/flEmpty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         app:layout_anchor="@id/rvMovies"
+        android:orientation="vertical"
         app:layout_anchorGravity="center">
 
         <ImageView
@@ -84,15 +87,14 @@
             android:id="@+id/tvEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/circular_medium"
             android:text="@string/empty_text"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorBlack"
             android:visibility="gone" />
-    </FrameLayout>
+    </LinearLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

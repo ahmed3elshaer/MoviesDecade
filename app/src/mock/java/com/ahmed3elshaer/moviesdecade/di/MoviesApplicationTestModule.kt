@@ -1,11 +1,11 @@
 package com.ahmed3elshaer.moviesdecade.di
 
 import android.content.Context
-import com.ahmed3elshaer.moviesdecade.data.MoviesProvider
 import com.ahmed3elshaer.moviesdecade.data.MoviesRepository
 import com.ahmed3elshaer.moviesdecade.data.room.MoviesDao
 import com.ahmed3elshaer.moviesdecade.data.room.MoviesDatabase
 import com.ahmed3elshaer.moviesdecade.moviedetail.DetailsActionProcessor
+import com.ahmed3elshaer.moviesdecade.movies.FakeMoviesProvider
 import com.ahmed3elshaer.moviesdecade.movies.MoviesActionProcessor
 import com.ahmed3elshaer.moviesdecade.network.FlickerApi
 import com.ahmed3elshaer.moviesdecade.utils.BASE_URL
@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit
 
 
 @Module
-class MoviesApplicationModule() {
+class MoviesApplicationTestModule() {
 
     @Provides
     internal fun provideViewModelFactory(
@@ -31,7 +31,7 @@ class MoviesApplicationModule() {
         DetailsActionProcessor: DetailsActionProcessor,
         context: Context
     ): ViewModelFactory {
-        return ViewModelFactory(context, moviesActionProcessor, DetailsActionProcessor)
+        return ViewModelFactory(context, moviesActionProcessor,DetailsActionProcessor)
     }
 
     @Provides
@@ -54,17 +54,10 @@ class MoviesApplicationModule() {
         flickerApi: FlickerApi,
         context: Context
     ): MoviesRepository {
-        return MoviesRepository(
-            MoviesProvider(context),
+        return MoviesRepository(FakeMoviesProvider(context),
             moviesDao,
             flickerApi
         )
-    }
-
-
-    @Provides
-    internal fun moviesProvider(context: Context): MoviesProvider {
-        return MoviesProvider(context)
     }
 
 
