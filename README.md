@@ -16,10 +16,9 @@ The past decade held a lot of movies, some left a mark and some were just a set 
 - Using Flicker api to retrieve photos that matches the movie title in a 2 column grid 
 
 ## Screenshot
-![png](https://github.com/Ahmed3Elshaer/MoviesDecade/master/art/1.png)
-![png](https://github.com/Ahmed3Elshaer/MoviesDecade/master/art/2.png)
-![png](https://github.com/Ahmed3Elshaer/MoviesDecade/master/art/3.png)
-
+<img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/1.png"></a>
+<img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/2.png"></a>
+<img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/4.png"></a>
 
 ## Specifications
 - Caching for movies from JSON file to optmize loading time.
