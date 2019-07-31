@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MoviesDecade</string>
+    <string name="empty_text">Couldn\'t find movies with this name</string>
+</resources>

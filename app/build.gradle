@@ -1,0 +1,144 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    splits {
+
+        // Configures multiple APKs based on ABI.
+        abi {
+
+            // Enables building multiple APKs.
+            enable true
+
+            // By default all ABIs are included, so use reset() and include to specify that we only
+            // want APKs for x86, armeabi-v7a, and mips.
+            reset()
+
+            // Specifies a list of ABIs that Gradle should create APKs for.
+            include "x86", "armeabi-v7a", "mips"
+
+            // Specify that we want to also generate a universal APK that includes all ABIs.
+            universalApk true
+        }
+    }
+    lintOptions {
+        // Turns off checks for the issue IDs you specify.
+        disable 'TypographyFractions','TypographyQuotes'
+        // Turns on checks for the issue IDs you specify. These checks are in
+        // addition to the default lint checks.
+        enable 'RtlHardcoded', 'RtlCompat', 'RtlEnabled'
+        // To enable checks for only a subset of issue IDs and ignore all others,
+        // list the issue IDs with the 'check' property instead. This property overrides
+        // any issue IDs you enable or disable using the properties above.
+        check 'NewApi', 'InlinedApi'
+        // If set to true, turns off analysis progress reporting by lint.
+        quiet true
+        // if set to true (default), stops the build if errors are found.
+        abortOnError false
+        // if true, only report errors.
+        ignoreWarnings true
+    }
+    compileSdkVersion build_versions.target_sdk
+    defaultConfig {
+        applicationId "com.ahmed3elshaer.moviesdecade"
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables {
+            useSupportLibrary = true
+        }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //kotlin
+    implementation deps.kotlin.stdlib
+    implementation deps.kotlin.test
+    implementation deps.kotlin.allopen
+
+    // Support libraries
+    implementation deps.support.app_compat
+    implementation deps.support.v4
+    implementation deps.support.design
+    implementation deps.support.cardview
+    implementation deps.support.annotations
+    implementation deps.support.core_utils
+    implementation deps.support.fragment_runtime_ktx
+    implementation deps.support.fragment_runtime
+    implementation deps.support.fragment_testing
+    implementation deps.support.multidex
+
+    //Utils
+    implementation deps.constraint_layout
+    implementation deps.glide.runtime
+    kapt deps.glide.compiler
+
+
+
+    //Architecture components
+    implementation deps.lifecycle.runtime
+    implementation deps.lifecycle.extensions
+    implementation deps.lifecycle.java8
+    implementation deps.lifecycle.viewmodel_ktx
+    kapt deps.lifecycle.compiler
+    kapt deps.room.compiler
+
+    //paging
+    implementation deps.paging.runtime
+    implementation deps.paging.rxpaging
+
+
+
+    //dagger
+    implementation deps.dagger.runtime
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.compiler
+    kapt deps.dagger.support_compiler
+    compileOnly deps.dagger.javax
+
+    //retrofit
+    implementation deps.retrofit.runtime
+    implementation deps.retrofit.adapter
+    implementation deps.retrofit.gson
+    implementation deps.retrofit.mock
+    implementation deps.retrofit.converter
+    implementation deps.okhttp_logging_interceptor
+
+    //Rx
+    implementation deps.rxjava2
+    implementation deps.rx_android
+
+
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
