@@ -79,9 +79,9 @@ class MovieDetailsBottomSheet : BottomSheetDialogFragment(),
 
     private fun loadingState(isLoading: Boolean) {
         if (isLoading)
-            animation_view.show()
+            animation_view?.show()
         else
-            animation_view.hide()
+            animation_view?.hide()
 
     }
 
@@ -144,10 +144,10 @@ class MovieDetailsBottomSheet : BottomSheetDialogFragment(),
     }
 
     private fun initImages() {
-        rvGallery.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
-        rvGallery.itemAnimator = DefaultItemAnimator()
-        rvGallery.setHasFixedSize(true)
-        rvGallery.adapter = galleryAdapter
+        rvGallery?.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        rvGallery?.itemAnimator = DefaultItemAnimator()
+        rvGallery?.setHasFixedSize(true)
+        rvGallery?.adapter = galleryAdapter
     }
 
     private fun bindViews(movie: Movie) {
@@ -168,23 +168,23 @@ class MovieDetailsBottomSheet : BottomSheetDialogFragment(),
                 titleSpan.length,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
             )
-            tvTitle.text = titleSpan
+            tvTitle?.text = titleSpan
             val castStr = StringBuilder()
             cast.forEach {
                 castStr.append(it)
                 if (it != cast.last())
                     castStr.append(", ")
             }
-            tvCast.text = castStr.toString()
+            tvCast?.text = castStr.toString()
             val genreStr = StringBuilder()
             genres.forEach {
                 genreStr.append(it)
                 if (it != genres.last())
                     genreStr.append(", ")
             }
-            tvGenres.text = genreStr.toString()
-            ratingBar.rating = rating.toFloat()
-            ratingBar.isEnabled = false
+            tvGenres?.text = genreStr.toString()
+            ratingBar?.rating = rating.toFloat()
+            ratingBar?.isEnabled = false
         }
 
     }
