@@ -1,4 +1,4 @@
-## Movies Decades , SWVL Challange
+## Movies Decades
 
 The past decade held a lot of movies, some left a mark and some were just a set of 24-60 pictures per second.This app is a ​Master - Detail Application​ to showcase those movies and the signature they left behind.
 
