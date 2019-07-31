@@ -11,12 +11,12 @@ import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 
 @Suppress("UNCHECKED_CAST")
-class MoviesActionProcessor(
+open class MoviesActionProcessor(
     moviesRepo: MoviesRepository,
     scheduler: BaseSchedulerProvider
 ) {
 
-    var actionProcessor =
+    open var actionProcessor =
         ObservableTransformer<MoviesActions, MoviesResults> { actions ->
             actions.publish { shared ->
                 Observable.merge(
