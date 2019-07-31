@@ -14,19 +14,19 @@ class ViewModelFactory @Inject constructor(
     private val applicationContext: Context,
     private val moviesActionProcessor: MoviesActionProcessor,
     private val detailsActionProcessor: DetailsActionProcessor
-) :  ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
 
-  @Suppress("UNCHECKED_CAST")
-  override fun <T : ViewModel> create(modelClass: Class<T>): T {
-    if (modelClass == MoviesViewModel::class.java) {
-      return MoviesViewModel(
-          moviesActionProcessor
-         ) as T
-    }else if (modelClass == DetailsViewModel::class.java){
-        return DetailsViewModel(detailsActionProcessor) as T
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass == MoviesViewModel::class.java) {
+            return MoviesViewModel(
+                moviesActionProcessor
+            ) as T
+        } else if (modelClass == DetailsViewModel::class.java) {
+            return DetailsViewModel(detailsActionProcessor) as T
+        }
+
+        throw IllegalArgumentException("unknown model class " + modelClass)
     }
-
-    throw IllegalArgumentException("unknown model class " + modelClass)
-  }
 
 }

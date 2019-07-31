@@ -135,7 +135,6 @@ class MovieDetailsBottomSheet : BottomSheetDialogFragment(),
     }
 
 
-
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)

@@ -1,7 +1,5 @@
 package com.ahmed3elshaer.moviesdecade.network
 
-import com.ahmed3elshaer.moviesdecade.data.models.Image
-import com.ahmed3elshaer.moviesdecade.data.models.ImageResponse
 import com.ahmed3elshaer.moviesdecade.data.models.ImageWrapperResponse
 import com.ahmed3elshaer.moviesdecade.utils.FLICKER_API_KEY
 import io.reactivex.Observable
@@ -21,6 +19,6 @@ interface FlickerApi {
         @Query("text") title: String,
         @Query("page") page: Int = 1,
         @Query("per_page") perPage: Int = 10
-        ): Observable<ImageWrapperResponse>
+    ): Observable<ImageWrapperResponse>
 
 }

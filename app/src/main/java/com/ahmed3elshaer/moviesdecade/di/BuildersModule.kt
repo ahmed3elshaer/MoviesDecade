@@ -15,5 +15,4 @@ abstract class BuildersModule {
     internal abstract fun bindDetailsFragment(): MovieDetailsBottomSheet
 
 
-
 }

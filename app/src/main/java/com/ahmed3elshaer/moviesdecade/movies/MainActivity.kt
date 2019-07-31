@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity(), MviView<MoviesIntents, MoviesViewState
             setTextColor(ContextCompat.getColor(this@MainActivity, R.color.colorPrimary))
             val font = ResourcesCompat.getFont(context, R.font.circular_book);
             typeface = font
-            setTextSize(TypedValue.COMPLEX_UNIT_SP,22f)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 22f)
 
         }
 

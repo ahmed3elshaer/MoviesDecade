@@ -9,7 +9,6 @@ import dagger.Provides
 class AppModule() {
 
 
-
     @Provides
     fun provideContext(app: App): Context {
         return app.applicationContext

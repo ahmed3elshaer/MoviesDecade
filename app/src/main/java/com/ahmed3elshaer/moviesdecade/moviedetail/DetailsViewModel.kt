@@ -76,21 +76,22 @@ class DetailsViewModel(var detailsActionProcessor: DetailsActionProcessor) : Vie
     }
 
     companion object {
-        private val reducer = BiFunction { previousState: DetailsViewStates, result: DetailsResults ->
-            when (result) {
-                is DetailsResults.QueryResult -> when (result) {
-                    is DetailsResults.QueryResult.Success -> previousState.copy(
-                       urls = result.urls,
-                        isLoading = false
-                    )
-                    is DetailsResults.QueryResult.Failure -> previousState.copy(
-                        error = result.error,
-                        isLoading = false
-                    )
-                    is DetailsResults.QueryResult.InFlight -> previousState.copy(isLoading = true)
+        private val reducer =
+            BiFunction { previousState: DetailsViewStates, result: DetailsResults ->
+                when (result) {
+                    is DetailsResults.QueryResult -> when (result) {
+                        is DetailsResults.QueryResult.Success -> previousState.copy(
+                            urls = result.urls,
+                            isLoading = false
+                        )
+                        is DetailsResults.QueryResult.Failure -> previousState.copy(
+                            error = result.error,
+                            isLoading = false
+                        )
+                        is DetailsResults.QueryResult.InFlight -> previousState.copy(isLoading = true)
+                    }
                 }
             }
-        }
 
 
     }
