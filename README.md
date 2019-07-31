@@ -1,27 +1,27 @@
 ## Movies Decades
 
-The past decade held a lot of movies, some left a mark and some were just a set of 24-60 pictures per second.This app is a ​Master - Detail Application​ to showcase those movies and the signature they left behind.
+The past decade held a lot of movies, some left a mark and some were just a set of 24-60 pictures per second.This app is a Master - Detail Application​ to showcase those movies and the signature they left behind.
 
 ## Challenge description
 - Load movies list from a JSON file.
 - Ability to search movies by name .
 - Categorize the movies search results by year and each year category has the top 5 rated movies within.
 - Show movies details with the following details :-
-    ● Movie Title.
-    ● Movie Year.
-    ● Movie Genres (if any).
-    ● Movie Cast (if any).
-    ● A two column list of pictures fetched from flickr that matches the movie title as the search
+    - Movie Title.
+    - Movie Year.
+    - Movie Genres (if any).
+    - Movie Cast (if any).
+    - A two column list of pictures fetched from flickr that matches the movie title as the search
       query.
 - Using Flicker api to retrieve photos that matches the movie title in a 2 column grid 
 
 ## Screenshot
-![png](https://github.com/Ahmed3Elshaer/MoviesDecade/master/art/1.png)
-![png](https://github.com/Ahmed3Elshaer/MoviesDecade/master/art/2.png)
-![png](https://github.com/Ahmed3Elshaer/MoviesDecade/master/art/3.png)
-
+<img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/1.png"></a>
+<img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/2.png"></a>
+<img src="https://github.com/Ahmed3Elshaer/MoviesDecade/blob/master/art/3.png"></a>
 
 ## Specifications
+
 - Caching for movies from JSON file to optmize loading time.
 - Realtime search and sorting speed.
 - Clean design
@@ -29,6 +29,7 @@ The past decade held a lot of movies, some left a mark and some were just a set 
 - Unit test.
 - Partly include comments.
 - Reactive and Functional code
+
 ## Languages, libraries and tools used
 
  * [Kotlin](https://kotlinlang.org/)
@@ -52,10 +53,11 @@ The past decade held a lot of movies, some left a mark and some were just a set 
 
 ## Installation
 
--Just clone the app and import to Android Studio.
+- Just clone the app and import to Android Studio.
 ``https://github.com/Ahmed3Elshaer/MoviesDecade.git``
 
 - Make sure that your are in the ``Prod`` product flavour.
+
 - For running the unit tests switch to ``Mock`` product flavour.
 
 ## Usage
