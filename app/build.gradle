@@ -7,6 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+
+    }
     splits {
 
         // Configures multiple APKs based on ABI.
